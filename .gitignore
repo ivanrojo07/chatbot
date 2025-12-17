@@ -54,3 +54,17 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ---------- Project-specific ----------
+# Ignore compiled output and compiled migrations (commit source migrations in src/)
+/dist/
+dist/migrations/
+
+# Keep source migrations tracked
+!src/migrations/
+!src/migrations/*.ts
+
+# Ignore local env files but keep example
+.env
+.env.*.local
+.env.local

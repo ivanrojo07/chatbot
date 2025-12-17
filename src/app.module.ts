@@ -14,12 +14,9 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USER || 'root',
       password: process.env.DB_PASSWORD || 'secret',
       database: process.env.DB_NAME || 'chatbot',
-      entities:
-        process.env.NODE_ENV === 'production'
-          ? ['dist/entity/*.js']
-          : ['src/entity/*.ts'],
-      synchronize: false,
-      logging: false,
+      autoLoadEntities: true,
+      synchronize: true,
+      logging: true,
     }),
     AuthModule,
     UsersModule,
