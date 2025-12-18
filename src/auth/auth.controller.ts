@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -18,8 +25,8 @@ export class AuthController {
     // return this.authService.login();
   }
   @UseGuards(AuthGuard)
-  @Get('/is_valid_token')
-  isValidToken() {
-    return { message: 'Token is valid' };
+  @Get('/profile')
+  isValidToken(@Request() req) {
+    return { message: 'Token is valid', user: req.user };
   }
 }
