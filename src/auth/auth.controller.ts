@@ -12,6 +12,7 @@ import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from './guard/auth.guard';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guard/roles.guard';
+import { Role } from './enums/rol.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -27,10 +28,9 @@ export class AuthController {
     // return this.authService.login();
   }
   @Get('/profile')
-  @Roles('user')
+  @Roles(Role.USER)
   @UseGuards(AuthGuard, RolesGuard)
   isValidToken(@Request() req) {
     return this.authService.profile(req.user);
-    return { message: 'Token is valid', user: req.user };
   }
 }
