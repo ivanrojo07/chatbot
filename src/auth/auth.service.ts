@@ -60,4 +60,18 @@ export class AuthService {
     const token = await this.jwtService.signAsync(payload);
     return { message: 'Login successful', token };
   }
+
+  async profile(user: any) {
+    const foundUser = await this.usersService.findOneByEmail(user.email);
+    if (foundUser) {
+      const payload = {
+        ...foundUser,
+        password: undefined,
+        id: undefined,
+        deletedAt: undefined,
+      };
+      return payload;
+    }
+    throw new BadRequestException('User not found');
+  }
 }
