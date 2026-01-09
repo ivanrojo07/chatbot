@@ -13,6 +13,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guard/roles.guard';
 import { Role } from './enums/rol.enum';
+import { Auth } from './decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -28,8 +29,7 @@ export class AuthController {
     // return this.authService.login();
   }
   @Get('/profile')
-  @Roles(Role.USER)
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.USER)
   isValidToken(@Request() req) {
     return this.authService.profile(req.user);
   }
