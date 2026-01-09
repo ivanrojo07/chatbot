@@ -11,6 +11,8 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Role } from '../common/enums/rol.enum';
 import { Auth } from './decorators/auth.decorator';
+import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
+import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -27,7 +29,7 @@ export class AuthController {
   }
   @Get('/profile')
   @Auth(Role.USER)
-  isValidToken(@Request() req) {
-    return this.authService.profile(req.user);
+  isValidToken(@ActiveUser() user: UserActiveInterface) {
+    return this.authService.profile(user);
   }
 }
