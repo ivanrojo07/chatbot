@@ -5,16 +5,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { BotModule } from './bot/bot.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
+import { BotController } from './bot/bot.controller';
+import { BotService } from './bot/bot.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Esto hace que no tengas que importarlo en cada módulo
-      envFilePath: '.env', // Opcional: por defecto busca el archivo .env en la raíz
+      isGlobal: true,
+      envFilePath: '.env',
     }),
-    // Cambiamos forRoot por forRootAsync
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -26,10 +28,11 @@ import { AuthService } from './auth/auth.service';
         password: configService.get<string>('DB_PASSWORD', 'toor'),
         database: configService.get<string>('DB_NAME', 'db_name'),
         autoLoadEntities: true,
-        synchronize: true, // Ten cuidado con esto en producción
+        synchronize: true,
         logging: true,
       }),
     }),
+    BotModule,
     AuthModule,
     UsersModule,
   ],
