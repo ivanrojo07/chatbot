@@ -8,8 +8,9 @@ import { UsersModule } from './users/users.module';
 import { BotModule } from './bot/bot.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
-import { BotController } from './bot/bot.controller';
-import { BotService } from './bot/bot.service';
+import { ChatModule } from './chat/chat.module';
+import { SociodemographicModule } from './sociodemographic-info/sociodemographic.module';
+import { AlcaldiasModule } from './alcaldias/alcaldias.module';
 
 @Module({
   imports: [
@@ -35,6 +36,9 @@ import { BotService } from './bot/bot.service';
     BotModule,
     AuthModule,
     UsersModule,
+    ChatModule,
+    SociodemographicModule,
+    AlcaldiasModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
