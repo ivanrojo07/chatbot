@@ -16,9 +16,9 @@ import { SociodemographicModule } from 'src/sociodemographic-info/sociodemograph
     TelegrafModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      botName: 'prueba_ivan_bot',
+      botName: process.env.TELEGRAM_BOT_NAME,
       useFactory: (configService: ConfigService) => ({
-        botName: 'prueba_ivan_bot',
+        botName: configService.get<string>('TELEGRAM_BOT_NAME')!,
         token: configService.get<string>('TELEGRAM_TOKEN')!,
         middlewares: [session()], // Obligatorio para usar Wizards/Escenas
       }),
@@ -30,25 +30,4 @@ import { SociodemographicModule } from 'src/sociodemographic-info/sociodemograph
   exports: [BotService],
   controllers: [BotController],
 })
-export class BotModule implements OnModuleDestroy {
-  private readonly logger = new Logger(BotModule.name);
-
-  constructor(private botService: BotService) {
-    // Lanzar el bot en background sin esperar
-    setImmediate(async () => {
-      try {
-        await this.botService.launch();
-      } catch (error) {
-        this.logger.error('Error initializing Telegram bot', error);
-      }
-    });
-  }
-
-  async onModuleDestroy() {
-    try {
-      await this.botService.stop();
-    } catch (error) {
-      this.logger.warn('Error stopping bot:', error);
-    }
-  }
-}
+export class BotModule {}
